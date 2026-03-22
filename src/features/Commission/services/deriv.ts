@@ -9,7 +9,7 @@ export const getCommission = async (date_from: string, date_to: string) => {
     throw new Error('WebSocket not connected');
   }
 
-  const response = await apiManager.send({
+  const response = await apiManager.augmentedSend({
     app_markup_statistics: 1,
     app_id: parseInt(DERIVMARKUP_APP_ID, 10),
     date_from,
@@ -25,7 +25,7 @@ export const getAppList = async () => {
     throw new Error('WebSocket not connected');
   }
 
-  const response = await apiManager.send({
+  const response = await apiManager.augmentedSend({
     app_list: 1,
   });
 
@@ -38,7 +38,7 @@ export const getAppDetails = async (app_id: number, date_from: string, date_to: 
     throw new Error('WebSocket not connected');
   }
 
-  const response = await apiManager.send({
+  const response = await apiManager.augmentedSend({
     app_markup_details: {
       app_id,
       date_from,
