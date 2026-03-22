@@ -1,0 +1,56 @@
+.commissionCard {
+  background: linear-gradient(135deg, #ff6b6b 0%, #ee5a5a 100%);
+  border-radius: 16px;
+  padding: 24px;
+  color: white;
+  box-shadow: 0 4px 20px rgba(238, 90, 90, 0.3);
+}
+
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.cardTitle {
+  font-size: 14px;
+  font-weight: 600;
+  opacity: 0.9;
+}
+
+.cardIcon {
+  width: 40px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cardValue {
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.cardMeta {
+  font-size: 12px;
+  opacity: 0.85;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.trend {
+  font-weight: 600;
+
+  &.up {
+    color: #4ade80;
+  }
+
+  &.down {
+    color: #f87171;
+  }
+}

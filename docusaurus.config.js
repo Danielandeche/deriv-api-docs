@@ -98,6 +98,11 @@ const config = {
             label: 'Dashboard',
           },
           {
+            to: '/commission',
+            position: 'left',
+            label: 'Commission',
+          },
+          {
             type: 'custom-user-navbar-item',
             position: 'right',
           },
