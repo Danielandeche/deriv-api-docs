@@ -8,7 +8,10 @@ import useAuthContext from '@site/src/hooks/useAuthContext';
 import { Text, Heading } from '@deriv-com/quill-ui';
 import styles from './Commission.module.scss';
 const Commission = () => {
-  const { currentLoginAccount } = useAuthContext();
+  const { currentLoginAccount, is_logged_in } = useAuthContext();
+  
+  // Only load data if user is logged in
+  const isLoggedIn = is_logged_in && currentLoginAccount.name;
 
   const [today, setToday] = useState(0);
   const [todayTxns, setTodayTxns] = useState(0);
@@ -161,9 +164,11 @@ const Commission = () => {
   }, [currentLoginAccount.name]);
 
   useEffect(() => {
-    loadDefaultCards();
-    loadMonthlyChart();
-  }, [loadDefaultCards, loadMonthlyChart]);
+    if (isLoggedIn) {
+      loadDefaultCards();
+      loadMonthlyChart();
+    }
+  }, [isLoggedIn, loadDefaultCards, loadMonthlyChart]);
 
   useEffect(() => {
     if (activeTab === 'monthly') {
@@ -178,6 +183,25 @@ const Commission = () => {
   const handleTabChange = (tab: string) => {
     setActiveTab(tab);
   };
+
+  // Show message if not logged in
+  if (!isLoggedIn) {
+    return (
+      <Layout>
+        <div className={styles.commissionPage}>
+          <div className={styles.header}>
+            <Heading.H2>Commission</Heading.H2>
+            <Text size='sm'>Track your commission earnings</Text>
+          </div>
+          <div className={styles.loginPrompt}>
+            <Text as='p' size='lg' className={styles.loginText}>
+              Please log in to view your commission details
+            </Text>
+          </div>
+        </div>
+      </Layout>
+    );
+  }
 
   return (
     <Layout>
