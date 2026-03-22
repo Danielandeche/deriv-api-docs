@@ -4,11 +4,23 @@ import { getCommission } from '@site/src/features/Commission/services/deriv';
 import CommissionCard from '@site/src/features/Commission/components/CommissionCard';
 import CommissionChart from '@site/src/features/Commission/components/CommissionChart';
 import useAuthContext from '@site/src/hooks/useAuthContext';
-import { Text, Heading } from '@deriv-com/quill-ui';
+import { Text, Heading, Button } from '@deriv-com/quill-ui';
 import styles from './Commission.module.scss';
+import useLoginUrl from '@site/src/hooks/useLoginUrl';
+import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 
 const Commission = () => {
-  const { currentLoginAccount } = useAuthContext();
+  const { currentLoginAccount, is_logged_in } = useAuthContext();
+  const {
+    i18n: { currentLocale },
+  } = useDocusaurusContext();
+  const { getUrl } = useLoginUrl();
+  const [authUrl, setAuthUrl] = useState('');
+  
+  useEffect(() => {
+    const url = getUrl(currentLocale);
+    setAuthUrl(url);
+  }, [getUrl, currentLocale]);
 
   const [today, setToday] = useState(0);
   const [todayTxns, setTodayTxns] = useState(0);
@@ -178,6 +190,30 @@ const Commission = () => {
   const handleTabChange = (tab: string) => {
     setActiveTab(tab);
   };
+
+  // Show login message if not logged in
+  if (!is_logged_in || !currentLoginAccount.name) {
+    return (
+      <div className={styles.commissionPage}>
+        <div className={styles.header}>
+          <Heading.H2>Commission</Heading.H2>
+          <Text size='sm'>Track your commission earnings</Text>
+        </div>
+        <div className={styles.loginPrompt}>
+          <Text as='p' size='lg' className={styles.loginText}>
+            Please log in to view your commission details
+          </Text>
+          <Button
+            variant='primary'
+            color='black'
+            onClick={() => window.location.href = authUrl}
+          >
+            Log In
+          </Button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className={styles.commissionPage}>
