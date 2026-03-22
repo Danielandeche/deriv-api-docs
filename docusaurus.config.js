@@ -93,51 +93,9 @@ const config = {
         },
         items: [
           {
-            to: 'https://deriv.com',
-            position: 'left',
-            label: 'Deriv.com',
-            className: 'mobile-only-menu-item deriv-com-link',
-          },
-          {
-            to: '#',
-            position: 'left',
-            label: "Trader's hub",
-            className: 'mobile-only-menu-item traders-hub-link',
-          },
-          {
-            to: '#',
-            position: 'left',
-            label: "Partner's hub",
-            className: 'mobile-only-menu-item partners-hub-link',
-          },
-          {
             to: '/dashboard',
             position: 'left',
             label: 'Dashboard',
-            className: 'mobile-only-menu-item',
-          },
-          {
-            to: 'api-explorer',
-            position: 'left',
-            label: 'API explorer',
-          },
-          {
-            to: 'https://legacy-docs.deriv.com',
-            label: 'Documentation',
-            position: 'left',
-            className: 'external-nav-link',
-          },
-          {
-            to: 'https://tech.deriv.com/',
-            label: 'Deriv tech',
-            position: 'left',
-            className: 'external-nav-link',
-          },
-          {
-            to: 'https://hackerone.com/deriv?type=team',
-            label: 'Bug bounty',
-            position: 'left',
-            className: 'external-nav-link bug-bounty-link',
           },
           {
             type: 'custom-user-navbar-item',
