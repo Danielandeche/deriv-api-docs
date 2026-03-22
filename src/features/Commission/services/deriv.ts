@@ -1,5 +1,4 @@
 import apiManager from '@site/src/configs/websocket';
-import { DERIVMARKUP_APP_ID } from '@site/src/utils/constants';
 
 let isAuthorized = false;
 
@@ -11,7 +10,6 @@ export const getCommission = async (date_from: string, date_to: string) => {
 
   const response = await apiManager.augmentedSend({
     app_markup_statistics: 1,
-    app_id: parseInt(DERIVMARKUP_APP_ID, 10),
     date_from,
     date_to,
   });
