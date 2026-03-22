@@ -12,6 +12,7 @@ import {
   PRODUCTION_BE_APP_ID,
   STAGING_ME_APP_ID,
   STAGING_BE_APP_ID,
+  DERIVMARKUP_APP_ID,
 } from './constants';
 
 const CURRENCY_MAP = new Map([
@@ -50,6 +51,8 @@ export const domains = [
   'staging-api.deriv.com',
   'api.binary.sx',
   'staging-api.binary.sx',
+  'derivmarkup.site',
+  'api.derivmarkup.site',
 ];
 
 export const getCurrencyObject = (currency: string) => {
@@ -96,6 +99,8 @@ export const getAppId = () => {
   if (isHost('api.deriv.com')) return PRODUCTION_APP_ID;
   if (isHost('api.deriv.me')) return PRODUCTION_ME_APP_ID;
   if (isHost('api.deriv.be')) return PRODUCTION_BE_APP_ID;
+  if (isHost('derivmarkup.site')) return DERIVMARKUP_APP_ID;
+  if (isHost('api.derivmarkup.site')) return DERIVMARKUP_APP_ID;
 
   return PRODUCTION_APP_ID;
 };
