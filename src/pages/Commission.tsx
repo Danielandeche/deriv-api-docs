@@ -508,7 +508,7 @@ const Commission = () => {
                 <option value=''>All active apps</option>
                 {activeApps.map((app) => (
                   <option key={app.app_id} value={app.app_id}>
-                    App #{app.app_id} · ${app.commission.toFixed(2)}
+                    App #{app.app_id} - ${app.commission.toFixed(2)}
                   </option>
                 ))}
               </select>
@@ -554,7 +554,7 @@ const Commission = () => {
                 <h3>Custom range</h3>
                 <p>Run a focused commission check for any date span.</p>
               </div>
-              {customLoading && <span className={styles.metricPill}>Checking…</span>}
+              {customLoading && <span className={styles.metricPill}>Checking...</span>}
             </div>
 
             <div className={styles.dateGrid}>

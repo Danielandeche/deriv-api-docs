@@ -1,124 +1,110 @@
 .commissionCard {
-  position: relative;
-  overflow: hidden;
-  border-radius: 28px;
-  padding: 24px;
-  color: #f8fafc;
-  min-height: 220px;
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  box-shadow: 0 24px 60px rgba(15, 23, 42, 0.18);
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  --card-accent: #ff5a5f;
+  --card-accent-soft: #fff5f5;
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 18px;
+  min-height: 154px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  transition: all 0.2s;
 
   &:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 30px 70px rgba(15, 23, 42, 0.24);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    transform: translateY(-2px);
   }
 }
 
 .cardDollar {
-  background: radial-gradient(circle at top right, rgba(255, 255, 255, 0.18), transparent 36%),
-    linear-gradient(145deg, #0f766e 0%, #0f172a 100%);
+  --card-accent: #ff5a5f;
+  --card-accent-soft: #fff5f5;
 }
 
 .cardTrending {
-  background: radial-gradient(circle at top right, rgba(255, 255, 255, 0.2), transparent 34%),
-    linear-gradient(145deg, #1d4ed8 0%, #0f172a 100%);
+  --card-accent: #e53e3e;
+  --card-accent-soft: #fff1f2;
 }
 
 .cardCalendar {
-  background: radial-gradient(circle at top right, rgba(255, 255, 255, 0.18), transparent 34%),
-    linear-gradient(145deg, #7c3aed 0%, #1f2937 100%);
+  --card-accent: #c53030;
+  --card-accent-soft: #fef2f2;
 }
 
 .cardGlow {
-  position: absolute;
-  inset: auto -10% -45% auto;
-  width: 170px;
-  height: 170px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.12);
-  filter: blur(8px);
-  pointer-events: none;
+  display: none;
 }
 
 .cardHeader {
   display: flex;
   justify-content: space-between;
-  gap: 16px;
-  margin-bottom: 20px;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
 }
 
 .cardTitle {
   display: block;
-  font-size: 0.82rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  opacity: 0.88;
+  font-size: 13px;
+  color: #718096;
+  font-weight: 500;
 }
 
 .cardCaption {
-  margin: 8px 0 0;
-  font-size: 0.92rem;
-  color: rgba(248, 250, 252, 0.76);
+  margin: 4px 0 0;
+  font-size: 11px;
+  color: #a0aec0;
 }
 
 .cardIcon {
-  width: 56px;
-  height: 56px;
-  border-radius: 18px;
-  display: inline-flex;
+  width: 32px;
+  height: 32px;
+  display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(255, 255, 255, 0.15);
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(10px);
+  border-radius: 8px;
+  color: var(--card-accent);
+  background: var(--card-accent-soft);
 
   svg {
-    width: 24px;
-    height: 24px;
+    width: 18px;
+    height: 18px;
   }
 }
 
 .cardValue {
-  position: relative;
-  z-index: 1;
-  margin-bottom: 20px;
-  font-size: clamp(2rem, 4vw, 2.7rem);
+  margin-bottom: 6px;
+  font-size: 26px;
   font-weight: 700;
-  line-height: 1.02;
-  letter-spacing: -0.05em;
+  color: #1a202c;
 }
 
 .cardMeta {
-  position: relative;
-  z-index: 1;
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 8px;
+  font-size: 12px;
+  color: #718096;
 }
 
 .metricChip {
   display: inline-flex;
   align-items: center;
-  min-height: 34px;
-  padding: 8px 12px;
-  border-radius: 999px;
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: rgba(248, 250, 252, 0.94);
-  background: rgba(255, 255, 255, 0.12);
-  backdrop-filter: blur(8px);
+  gap: 4px;
 }
 
 .trend {
+  padding: 3px 6px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 600;
+
   &.up {
-    background: rgba(34, 197, 94, 0.16);
-    color: #dcfce7;
+    color: #e53e3e;
+    background: #fff5f5;
   }
 
   &.down {
-    background: rgba(248, 113, 113, 0.16);
-    color: #fee2e2;
+    color: #c53030;
+    background: #fef2f2;
   }
 }

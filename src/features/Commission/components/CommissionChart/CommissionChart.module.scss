@@ -1,90 +1,80 @@
 .chartSection {
-  padding: 28px;
-  margin-top: 28px;
-  border-radius: 30px;
-  border: 1px solid #dbe4f0;
-  background: radial-gradient(circle at top right, rgba(14, 165, 233, 0.1), transparent 28%),
-    linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
-  box-shadow: 0 24px 60px rgba(15, 23, 42, 0.08);
+  margin-top: 16px;
+  padding: 22px;
+  background: #ffffff;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
 }
 
 .chartHeader {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: center;
+  gap: 12px;
   flex-wrap: wrap;
-  gap: 16px;
+  margin-bottom: 16px;
 }
 
 .chartHeading {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 8px;
 }
 
 .chartTitle {
   display: flex;
   align-items: center;
-  gap: 10px;
-  font-size: 1.15rem;
+  gap: 8px;
+  font-size: 16px;
   font-weight: 700;
-  color: #0f172a;
+  color: #1a202c;
 }
 
 .chartTitleIcon {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 36px;
-  height: 36px;
-  border-radius: 12px;
-  color: #0f766e;
-  background: rgba(15, 118, 110, 0.1);
+  color: #ff5a5f;
 }
 
 .contextPill {
   display: inline-flex;
   align-items: center;
   width: fit-content;
-  min-height: 34px;
-  padding: 8px 12px;
+  min-height: 28px;
+  padding: 4px 10px;
   border-radius: 999px;
-  font-size: 0.84rem;
+  font-size: 0.74rem;
   font-weight: 600;
-  color: #0f172a;
-  background: #e2e8f0;
+  color: #e53e3e;
+  background: #fff5f5;
+  border: 1px solid #fed7d7;
 }
 
 .chartTabs {
-  display: inline-flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  padding: 6px;
-  border-radius: 18px;
-  background: #e2e8f0;
+  display: flex;
+  gap: 6px;
+  padding: 4px;
+  border-radius: 8px;
+  background: #f7fafc;
 }
 
 .chartTab {
-  min-height: 40px;
-  padding: 0 16px;
-  border: none;
-  border-radius: 12px;
-  font-size: 0.94rem;
-  font-weight: 600;
-  color: #475569;
+  padding: 6px 12px;
   background: transparent;
+  border: none;
+  border-radius: 6px;
+  color: #718096;
+  font-size: 12px;
+  font-weight: 600;
   cursor: pointer;
-  transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+  transition: all 0.2s;
 
   &:hover:not(:disabled) {
-    color: #0f172a;
-    transform: translateY(-1px);
+    background: #e2e8f0;
   }
 
   &.active {
     color: #ffffff;
-    background: linear-gradient(135deg, #0f766e 0%, #0f172a 100%);
-    box-shadow: 0 10px 24px rgba(15, 23, 42, 0.2);
+    background: #ff5a5f;
   }
 
   &:disabled {
@@ -96,41 +86,41 @@
 .summaryGrid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 14px;
-  margin-top: 22px;
+  gap: 10px;
+  margin-bottom: 16px;
 }
 
 .summaryCard {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  padding: 18px;
-  border-radius: 22px;
-  background: rgba(255, 255, 255, 0.75);
-  border: 1px solid #dbe4f0;
+  padding: 12px;
+  border-radius: 10px;
+  background: #f7fafc;
+  border: 1px solid #edf2f7;
 
   span {
-    font-size: 0.82rem;
+    display: block;
+    margin-bottom: 4px;
+    font-size: 11px;
     font-weight: 600;
-    color: #64748b;
+    letter-spacing: 0.04em;
     text-transform: uppercase;
-    letter-spacing: 0.05em;
+    color: #a0aec0;
   }
 
   strong {
-    color: #0f172a;
-    font-size: 1rem;
-    line-height: 1.35;
+    color: #2d3748;
+    font-size: 13px;
+    line-height: 1.4;
   }
 }
 
 .chartContainer {
-  min-height: 380px;
-  margin-top: 22px;
+  margin-top: 16px;
+  min-height: 280px;
+  overflow-x: auto;
 }
 
 .loadingContainer {
-  min-height: 380px;
+  min-height: 280px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -139,10 +129,10 @@
 }
 
 .loadingSpinner {
-  width: 42px;
-  height: 42px;
-  border: 3px solid #dbe4f0;
-  border-top-color: #0f766e;
+  width: 32px;
+  height: 32px;
+  border: 3px solid #e2e8f0;
+  border-top-color: #ff5a5f;
   border-radius: 50%;
   animation: spin 1s linear infinite;
 }
@@ -156,61 +146,58 @@
 .barChart {
   display: flex;
   align-items: flex-end;
-  height: 380px;
-  gap: 10px;
-  padding: 20px 4px 6px;
-  overflow-x: auto;
+  height: 280px;
+  gap: 6px;
+  padding: 12px 6px 0;
 }
 
 .barItem {
-  min-width: 46px;
+  min-width: 34px;
   flex: 1 1 0;
   height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-end;
-  gap: 8px;
+  gap: 6px;
 }
 
 .barValue {
-  min-height: 18px;
-  font-size: 0.68rem;
-  font-weight: 700;
-  color: #475569;
+  min-height: 14px;
+  font-size: 10px;
+  font-weight: 600;
+  color: #718096;
 }
 
 .barWrapper {
-  position: relative;
   flex: 1;
   width: 100%;
   display: flex;
   align-items: flex-end;
   justify-content: center;
-  border-radius: 18px 18px 10px 10px;
-  background: linear-gradient(180deg, rgba(148, 163, 184, 0.12) 0%, rgba(148, 163, 184, 0.04) 100%),
-    repeating-linear-gradient(to top, transparent, transparent 47px, rgba(148, 163, 184, 0.08) 48px);
+  border-radius: 8px 8px 6px 6px;
+  background: linear-gradient(180deg, rgba(226, 232, 240, 0.3) 0%, rgba(247, 250, 252, 0.9) 100%);
 }
 
 .bar {
-  width: min(46px, 72%);
-  min-height: 8px;
-  border-radius: 16px 16px 8px 8px;
-  background: linear-gradient(180deg, #14b8a6 0%, #0f172a 100%);
-  box-shadow: 0 12px 24px rgba(15, 118, 110, 0.2);
-  transition: transform 0.2s ease, opacity 0.2s ease;
+  width: min(28px, 70%);
+  min-height: 4px;
+  border-radius: 8px 8px 0 0;
+  background: linear-gradient(180deg, #ff8a8f 0%, #e53e3e 100%);
+  box-shadow: 0 8px 16px rgba(229, 62, 62, 0.18);
+  transition: opacity 0.2s ease, transform 0.2s ease;
   cursor: pointer;
 
   &:hover {
+    opacity: 0.9;
     transform: translateY(-2px);
-    opacity: 0.92;
   }
 }
 
 .barLabel {
-  font-size: 0.72rem;
-  font-weight: 700;
-  color: #64748b;
+  font-size: 10px;
+  font-weight: 600;
+  color: #718096;
   text-align: center;
 }
 
@@ -222,12 +209,11 @@
 
 @media (max-width: 768px) {
   .chartSection {
-    padding: 22px;
-    border-radius: 24px;
+    padding: 18px;
   }
 
   .chartHeader {
-    flex-direction: column;
+    align-items: flex-start;
   }
 
   .chartTabs {
@@ -236,13 +222,5 @@
 
   .chartTab {
     flex: 1;
-  }
-
-  .barChart {
-    gap: 8px;
-  }
-
-  .barItem {
-    min-width: 40px;
   }
 }
