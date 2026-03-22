@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useRef } from 'react';
 import clsx from 'clsx';
 import Translate, { translate } from '@docusaurus/Translate';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
-import { Button } from '@deriv-com/quill-ui';
+import { Button, Text } from '@deriv-com/quill-ui';
 import { LabelPairedGridLgRegularIcon } from '@deriv/quill-icons';
 import useLogout from '@site/src/hooks/useLogout';
 import useDeviceType from '@site/src/hooks/useDeviceType';
@@ -33,11 +33,21 @@ const DashboardActions: React.FC<IActionProps> = ({ handleClick, isDesktop, site
     i18n: { currentLocale },
   } = useDocusaurusContext();
 
-  const onClickDashboard = () => {
-    const is_en = currentLocale === 'en';
-    const pathInfo = `${!is_en ? `/${currentLocale}` : ''}/dashboard`;
-    location.assign(pathInfo);
-  };
+  const { currentLoginAccount, userAccounts } = useAuthContext();
+
+  // const onClickDashboard = () => {
+  //   const is_en = currentLocale === 'en';
+  //   const pathInfo = `${!is_en ? `/${currentLocale}` : ''}/dashboard`;
+  //   location.assign(pathInfo);
+  // };
+
+  // Get the balance for the current account
+  const currentAccountInfo = userAccounts?.find(
+    (account) => account.loginid === currentLoginAccount.name,
+  );
+  const balance = currentAccountInfo?.balance
+    ? `$${currentAccountInfo.balance.toLocaleString()}`
+    : '';
 
   const renderDashboardBtn = () => {
     return (
@@ -58,10 +68,30 @@ const DashboardActions: React.FC<IActionProps> = ({ handleClick, isDesktop, site
     );
   };
 
+  const renderAccountInfo = () => {
+    if (!currentLoginAccount.name) return null;
+
+    return (
+      <div className={styles.accountInfo}>
+        <Text as='span' size='sm' bold>
+          {currentLoginAccount.name}
+        </Text>
+        {balance && (
+          <Text as='span' size='sm' className={styles.balance}>
+            {balance}
+          </Text>
+        )}
+      </div>
+    );
+  };
+
   return (
     <React.Fragment>
       {siteActive ? (
-        renderDashboardBtn()
+        <div className={styles.loggedInSection}>
+          {renderAccountInfo()}
+          {renderDashboardBtn()}
+        </div>
       ) : (
         <CustomTooltip text={siteDownErrMsg}>
           <span>{renderDashboardBtn()}</span>

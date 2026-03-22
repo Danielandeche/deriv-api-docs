@@ -1,5 +1,25 @@
 @use '../../styles/utility' as *;
 
+.loggedInSection {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.accountInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  padding-right: 8px;
+  border-right: 1px solid var(--component-divider-border-color, rgba(0, 0, 0, 0.1));
+  margin-right: 8px;
+
+  .balance {
+    color: var(--colors-green-green1, #00a47e);
+    font-weight: 600;
+  }
+}
+
 .dashboardButton,
 .logoutButton {
   text-decoration: none !important;
