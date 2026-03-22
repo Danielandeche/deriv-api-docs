@@ -72,30 +72,25 @@ const ManageDashboard = () => {
     }
   };
 
-  const commonLinks = [
-    { content: translate({ message: 'Home' }), href: locale_Links.root, target: '_self' },
-    { content: translate({ message: 'Dashboard' }), href: locale_Links.dashboard, target: '_self' },
-  ];
-
   const tabSecondaryLinks = {
     [TDashboardTab.REGISTER_APP]: {
-      content: translate({ message: 'Register application' }),
-      href: locale_Links.dashboard,
-      target: '_self',
+      content: translate({ message: 'Register Application' }),
+    },
+    [TDashboardTab.MANAGE_APPS]: {
+      content: translate({ message: 'Manage Applications' }),
     },
     [TDashboardTab.UPDATE_APP]: {
-      content: translate({ message: 'Edit application' }),
-      href: locale_Links.dashboard,
-      target: '_self',
+      content: translate({ message: 'Edit Application' }),
     },
     [TDashboardTab.REGISTER_TOKENS]: {
-      content: translate({ message: 'Create token' }),
-      href: locale_Links.dashboard,
-      target: '_self',
+      content: translate({ message: 'API Tokens' }),
+    },
+    [TDashboardTab.MANAGE_TOKENS]: {
+      content: translate({ message: 'Manage Tokens' }),
     },
   };
 
-  const breadcrumbsLinks = [...commonLinks, tabSecondaryLinks[currentTab]].filter(Boolean);
+  const breadcrumbsLinks = [tabSecondaryLinks[currentTab]].filter(Boolean);
 
   return (
     <div className='container'>
