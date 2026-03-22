@@ -19,7 +19,7 @@ type UseTMBReturn = {
  */
 const useTMB = (): UseTMBReturn => {
   const { getUrl } = useLoginUrl();
-  const { updateLoginAccounts, updateCurrentLoginAccount } = useAuthContext();
+  const { updateLoginAccounts, updateCurrentLoginAccount, loginAccounts } = useAuthContext();
   const history = useHistory();
   const {
     i18n: { currentLocale },
@@ -67,11 +67,18 @@ const useTMB = (): UseTMBReturn => {
     } catch (error) {
       // eslint-disable-next-line no-console
       console.error('Failed to get active sessions from TMB', error);
+      return null;
     }
   }, []);
 
   const onRenderTMBCheck = useCallback(async () => {
     const activeSessions = await getActiveSessions();
+
+    // If there are no active sessions from TMB but we already have login accounts from OAuth callback,
+    // don't clear them - let the OAuth flow proceed
+    if (!activeSessions?.active && loginAccounts.length > 0) {
+      return;
+    }
 
     if (activeSessions?.active) {
       //have to add the success redirection functions here
@@ -117,7 +124,16 @@ const useTMB = (): UseTMBReturn => {
         currency: '',
       });
     }
-  }, [getActiveSessions, handleLogout, domains, currentDomain]);
+  }, [
+    getActiveSessions,
+    handleLogout,
+    domains,
+    currentDomain,
+    loginAccounts,
+    updateLoginAccounts,
+    updateCurrentLoginAccount,
+    history,
+  ]);
 
   return { handleLogout, onRenderTMBCheck };
 };
