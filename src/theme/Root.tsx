@@ -9,13 +9,13 @@ import ApiTokenProvider from '../contexts/api-token/api-token.provider';
 import AppManagerContextProvider from '../contexts/app-manager/app-manager.provider';
 import PlaygroundProvider from '../contexts/playground/playground.provider';
 import OfficialContentsProvider from '../contexts/official-contents/official-contents.provider';
+import { initDisableDevtool } from '../utils/disable-devtool';
 
 type TRootProps = {
   children: ReactNode;
 };
 
-const { trackJsToken, rudderstackKey, growthbookClientKey, growthbookDecryptionKey } =
-  siteConfig.customFields;
+const { trackJsToken, rudderstackKey, growthbookClientKey } = siteConfig.customFields;
 
 if (trackJsToken) {
   TrackJS.install({
@@ -36,6 +36,10 @@ if (rudderstackKey && growthbookClientKey) {
 }
 
 export default function Root({ children }: TRootProps) {
+  React.useEffect(() => {
+    initDisableDevtool();
+  }, []);
+
   return (
     <>
       <OfficialContentsProvider>

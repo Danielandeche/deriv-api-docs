@@ -70,6 +70,14 @@ const mockUseAuthContext = useAuthContext as jest.MockedFunction<
 >;
 
 const mockGetCommission = getCommission as jest.MockedFunction<typeof getCommission>;
+const createCommissionResponse = (
+  breakdown: Array<{ app_id: string; app_markup_usd: number; transactions_count: number }> = [],
+) =>
+  ({
+    app_markup_statistics: {
+      breakdown,
+    },
+  } as unknown as Awaited<ReturnType<typeof getCommission>>);
 
 const authorizedContext = {
   is_logged_in: true,
@@ -82,11 +90,7 @@ describe('Commission page', () => {
     mockUseAuthContext.mockImplementation(
       () => authorizedContext as Partial<ReturnType<typeof useAuthContext>>,
     );
-    mockGetCommission.mockResolvedValue({
-      app_markup_statistics: {
-        breakdown: [],
-      },
-    } as Awaited<ReturnType<typeof getCommission>>);
+    mockGetCommission.mockResolvedValue(createCommissionResponse());
   });
 
   it('shows the login prompt when the user is not logged in', async () => {
@@ -124,14 +128,12 @@ describe('Commission page', () => {
   });
 
   it('aggregates commission data across apps and loads the monthly chart once on mount', async () => {
-    mockGetCommission.mockResolvedValue({
-      app_markup_statistics: {
-        breakdown: [
-          { app_id: '123', app_markup_usd: 12.5, transactions_count: 4 },
-          { app_id: '456', app_markup_usd: 7.5, transactions_count: 3 },
-        ],
-      },
-    } as Awaited<ReturnType<typeof getCommission>>);
+    mockGetCommission.mockResolvedValue(
+      createCommissionResponse([
+        { app_id: '123', app_markup_usd: 12.5, transactions_count: 4 },
+        { app_id: '456', app_markup_usd: 7.5, transactions_count: 3 },
+      ]),
+    );
 
     render(<Commission />);
 
@@ -165,5 +167,56 @@ describe('Commission page', () => {
     expect(mockGetCommission).toHaveBeenCalledTimes(45);
     expect(screen.getByTestId('chart-title')).toHaveTextContent('Daily Commission Distribution');
     expect(screen.getByTestId('chart-state')).toHaveTextContent('daily|ready|30');
+  });
+
+  it('filters commission figures by the selected app', async () => {
+    mockGetCommission.mockResolvedValue(
+      createCommissionResponse([
+        { app_id: '123', app_markup_usd: 12.5, transactions_count: 4 },
+        { app_id: '456', app_markup_usd: 7.5, transactions_count: 3 },
+      ]),
+    );
+
+    render(<Commission />);
+
+    await waitFor(() => {
+      expect(screen.getByRole('button', { name: '#123' })).toBeInTheDocument();
+    });
+
+    fireEvent.click(screen.getByRole('button', { name: '#123' }));
+
+    await waitFor(() => {
+      expect(screen.getByTestId('card-This Month')).toHaveTextContent('This Month|12.5|4|0.0');
+    });
+
+    expect(mockGetCommission).toHaveBeenCalledTimes(30);
+    expect(screen.getByTestId('chart-title')).toHaveTextContent(
+      'Monthly Commission Distribution for App #123',
+    );
+  });
+
+  it('loads a custom range only when requested', async () => {
+    mockGetCommission.mockResolvedValue(
+      createCommissionResponse([
+        { app_id: '123', app_markup_usd: 12.5, transactions_count: 4 },
+        { app_id: '456', app_markup_usd: 7.5, transactions_count: 3 },
+      ]),
+    );
+
+    render(<Commission />);
+
+    await waitFor(() => {
+      expect(screen.getByTestId('chart-state')).toHaveTextContent('monthly|ready|12');
+    });
+
+    fireEvent.click(screen.getByRole('button', { name: /Check commission/i }));
+
+    await waitFor(() => {
+      expect(screen.getByTestId('card-Custom Range')).toHaveTextContent(
+        'Custom Range|20|7|no-trend',
+      );
+    });
+
+    expect(mockGetCommission).toHaveBeenCalledTimes(16);
   });
 });

@@ -7,6 +7,13 @@ type CommissionCardProps = {
   icon?: 'dollar' | 'trending' | 'calendar';
   trend?: string | null;
   transactions?: number;
+  caption?: string;
+};
+
+const getToneClass = (icon: CommissionCardProps['icon']) => {
+  if (icon === 'trending') return styles.cardTrending;
+  if (icon === 'calendar') return styles.cardCalendar;
+  return styles.cardDollar;
 };
 
 const CommissionCard: React.FC<CommissionCardProps> = ({
@@ -15,6 +22,7 @@ const CommissionCard: React.FC<CommissionCardProps> = ({
   icon = 'dollar',
   trend,
   transactions,
+  caption,
 }) => {
   const trendValue = trend ? parseFloat(trend) : null;
   const hasTrend = trendValue !== null && !Number.isNaN(trendValue);
@@ -79,20 +87,30 @@ const CommissionCard: React.FC<CommissionCardProps> = ({
   };
 
   return (
-    <div className={styles.commissionCard}>
+    <div className={`${styles.commissionCard} ${getToneClass(icon)}`}>
+      <div className={styles.cardGlow} />
+
       <div className={styles.cardHeader}>
-        <span className={styles.cardTitle}>{title}</span>
+        <div>
+          <span className={styles.cardTitle}>{title}</span>
+          {caption && <p className={styles.cardCaption}>{caption}</p>}
+        </div>
         <div className={styles.cardIcon}>{getIcon()}</div>
       </div>
 
       <div className={styles.cardValue}>${formatNumber(value)}</div>
 
       <div className={styles.cardMeta}>
+        <span className={styles.metricChip}>USD commission</span>
         {typeof transactions === 'number' && (
-          <span>Transactions: {transactions.toLocaleString()}</span>
+          <span className={styles.metricChip}>Transactions: {transactions.toLocaleString()}</span>
         )}
         {hasTrend && (
-          <span className={`${styles.trend} ${isTrendDown ? styles.down : styles.up}`}>
+          <span
+            className={`${styles.metricChip} ${styles.trend} ${
+              isTrendDown ? styles.down : styles.up
+            }`}
+          >
             {isTrendDown ? 'Down' : 'Up'} {Math.abs(trendValue).toFixed(1)}% vs last month
           </span>
         )}
