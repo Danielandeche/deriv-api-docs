@@ -35,11 +35,11 @@ const DashboardActions: React.FC<IActionProps> = ({ handleClick, isDesktop, site
 
   const { currentLoginAccount, userAccounts } = useAuthContext();
 
-  // const onClickDashboard = () => {
-  //   const is_en = currentLocale === 'en';
-  //   const pathInfo = `${!is_en ? `/${currentLocale}` : ''}/dashboard`;
-  //   location.assign(pathInfo);
-  // };
+  const onClickDashboard = () => {
+    const is_en = currentLocale === 'en';
+    const pathInfo = `${!is_en ? `/${currentLocale}` : ''}/dashboard`;
+    location.assign(pathInfo);
+  };
 
   // Get the balance for the current account
   const currentAccountInfo = userAccounts?.find(
