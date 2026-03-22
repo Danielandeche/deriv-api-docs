@@ -245,6 +245,10 @@ export const findVirtualAccount = (accounts: IUserLoginAccount[]) => {
   return accounts.find((item) => item.name.includes('VRTC'));
 };
 
+export const findRealAccount = (accounts: IUserLoginAccount[]) => {
+  return accounts.find((item) => !item.name.includes('VRTC') && !item.name.includes('VRW'));
+};
+
 export const hasDuplicateKeys = (jsonStr: string) => {
   const keyCounts = new Map();
   const regex = /"([^"]+)"\s*:/g;

@@ -9,7 +9,12 @@ import {
   USER_ACCOUNTS_SESSION_STORAGE_KEY,
   USER_SESSION_STORAGE_KEY,
 } from '@site/src/utils/constants';
-import { findVirtualAccount, getIsBrowser, getTmbConfigUrl } from '@site/src/utils';
+import {
+  findVirtualAccount,
+  findRealAccount,
+  getIsBrowser,
+  getTmbConfigUrl,
+} from '@site/src/utils';
 import useServerInfo from '@site/src/hooks/useServerInfo';
 
 type TAuthProviderProps = {
@@ -110,9 +115,10 @@ const AuthProvider = ({ children }: TAuthProviderProps) => {
       if (!updateCurrentAccount) return;
 
       if (loginAccounts.length) {
-        const virtualAccount = findVirtualAccount(loginAccounts);
-        if (virtualAccount) {
-          setCurrentLoginAccount(virtualAccount);
+        // Prefer real account over virtual account
+        const realAccount = findRealAccount(loginAccounts);
+        if (realAccount) {
+          setCurrentLoginAccount(realAccount);
         } else {
           setCurrentLoginAccount(loginAccounts[0]);
         }
