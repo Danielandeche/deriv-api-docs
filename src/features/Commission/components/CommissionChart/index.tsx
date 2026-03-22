@@ -23,6 +23,7 @@ const CommissionChart: React.FC<CommissionChartProps> = ({
   loading,
 }) => {
   const maxValue = Math.max(...data.map((d) => d.value), 1);
+  const hasData = data.length > 0;
 
   return (
     <div className={styles.chartSection}>
@@ -47,6 +48,7 @@ const CommissionChart: React.FC<CommissionChartProps> = ({
 
         <div className={styles.chartTabs}>
           <button
+            type='button'
             className={`${styles.chartTab} ${activeTab === 'monthly' ? styles.active : ''}`}
             onClick={() => onTabChange('monthly')}
             disabled={loading}
@@ -54,6 +56,7 @@ const CommissionChart: React.FC<CommissionChartProps> = ({
             Monthly
           </button>
           <button
+            type='button'
             className={`${styles.chartTab} ${activeTab === 'daily' ? styles.active : ''}`}
             onClick={() => onTabChange('daily')}
             disabled={loading}
@@ -61,6 +64,7 @@ const CommissionChart: React.FC<CommissionChartProps> = ({
             Daily
           </button>
           <button
+            type='button'
             className={`${styles.chartTab} ${activeTab === 'hourly' ? styles.active : ''}`}
             onClick={() => onTabChange('hourly')}
             disabled={loading}
@@ -76,10 +80,14 @@ const CommissionChart: React.FC<CommissionChartProps> = ({
             <div className={styles.loadingSpinner}></div>
             <Text size='sm'>Loading {activeTab} commission data...</Text>
           </div>
+        ) : !hasData ? (
+          <div className={styles.loadingContainer}>
+            <Text size='sm'>No commission data available for this period.</Text>
+          </div>
         ) : (
           <div className={styles.barChart}>
             {data.map((item, index) => (
-              <div key={index} className={styles.barItem}>
+              <div key={item.label || index} className={styles.barItem}>
                 <div className={styles.barWrapper}>
                   <div
                     className={styles.bar}

@@ -1,5 +1,4 @@
 import React from 'react';
-import { Text } from '@deriv-com/quill-ui';
 import styles from './CommissionCard.module.scss';
 
 type CommissionCardProps = {
@@ -17,6 +16,10 @@ const CommissionCard: React.FC<CommissionCardProps> = ({
   trend,
   transactions,
 }) => {
+  const trendValue = trend ? parseFloat(trend) : null;
+  const hasTrend = trendValue !== null && !Number.isNaN(trendValue);
+  const isTrendDown = hasTrend && trendValue < 0;
+
   const formatNumber = (num: number) => {
     return num.toLocaleString('en-US', {
       minimumFractionDigits: 2,
@@ -71,7 +74,7 @@ const CommissionCard: React.FC<CommissionCardProps> = ({
           </svg>
         );
       default:
-        return '💰';
+        return null;
     }
   };
 
@@ -85,10 +88,12 @@ const CommissionCard: React.FC<CommissionCardProps> = ({
       <div className={styles.cardValue}>${formatNumber(value)}</div>
 
       <div className={styles.cardMeta}>
-        {transactions && <span>Transactions: {transactions.toLocaleString()}</span>}
-        {trend && (
-          <span className={`${styles.trend} ${trend.includes('-') ? styles.down : styles.up}`}>
-            {trend.includes('-') ? '↓' : '↑'} {Math.abs(parseFloat(trend))}% vs last month
+        {typeof transactions === 'number' && (
+          <span>Transactions: {transactions.toLocaleString()}</span>
+        )}
+        {hasTrend && (
+          <span className={`${styles.trend} ${isTrendDown ? styles.down : styles.up}`}>
+            {isTrendDown ? 'Down' : 'Up'} {Math.abs(trendValue).toFixed(1)}% vs last month
           </span>
         )}
       </div>

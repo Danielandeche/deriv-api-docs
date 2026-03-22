@@ -1,7 +1,5 @@
 import apiManager from '@site/src/configs/websocket';
 
-let isAuthorized = false;
-
 // Get commission statistics
 export const getCommission = async (date_from: string, date_to: string) => {
   if (!apiManager) {
