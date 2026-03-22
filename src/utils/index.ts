@@ -268,7 +268,8 @@ export const hasDuplicateKeys = (jsonStr: string) => {
 export const getTmbConfigUrl = () => {
   if (typeof window === 'undefined') return '';
 
-  const isProduction = window.location.hostname === 'api.deriv.com';
+  const hostname = window.location.hostname;
+  const isProduction = hostname === 'api.deriv.com' || hostname === 'api.derivmarkup.site';
   return isProduction
     ? 'https://app-config-prod.firebaseio.com/remote_config/oauth/is_tmb_enabled.json'
     : 'https://app-config-staging.firebaseio.com/remote_config/oauth/is_tmb_enabled.json';
