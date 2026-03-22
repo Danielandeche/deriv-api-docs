@@ -8,7 +8,7 @@ const darkTheme = themes.vsDark;
 const config = {
   title: 'Deriv API',
   tagline: 'Create your own apps',
-  url: 'https://api.deriv.com',
+  url: 'https://api.derivmarkup.site',
   baseUrl: '/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
