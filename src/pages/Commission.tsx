@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import moment from 'moment';
+import Layout from '@theme/Layout';
 import { getCommission } from '@site/src/features/Commission/services/deriv';
 import CommissionCard from '@site/src/features/Commission/components/CommissionCard';
 import CommissionChart from '@site/src/features/Commission/components/CommissionChart';
@@ -179,42 +180,44 @@ const Commission = () => {
   };
 
   return (
-    <div className={styles.commissionPage}>
-      <div className={styles.header}>
-        <Heading.H2>Commission</Heading.H2>
-        <Text size='sm'>Track your commission earnings</Text>
-      </div>
+    <Layout>
+      <div className={styles.commissionPage}>
+        <div className={styles.header}>
+          <Heading.H2>Commission</Heading.H2>
+          <Text size='sm'>Track your commission earnings</Text>
+        </div>
 
-      <div className={styles.cardsGrid}>
-        <CommissionCard
-          title='This Month'
-          value={thisMonth}
-          icon='dollar'
-          trend={lastMonth > 0 ? (((thisMonth - lastMonth) / lastMonth) * 100).toFixed(1) : null}
-          transactions={thisMonthTxns}
-        />
-        <CommissionCard
-          title="Today's Commission"
-          value={today}
-          icon='trending'
-          transactions={todayTxns}
-        />
-        <CommissionCard
-          title='Last Month'
-          value={lastMonth}
-          icon='calendar'
-          transactions={lastMonthTxns}
+        <div className={styles.cardsGrid}>
+          <CommissionCard
+            title='This Month'
+            value={thisMonth}
+            icon='dollar'
+            trend={lastMonth > 0 ? (((thisMonth - lastMonth) / lastMonth) * 100).toFixed(1) : null}
+            transactions={thisMonthTxns}
+          />
+          <CommissionCard
+            title="Today's Commission"
+            value={today}
+            icon='trending'
+            transactions={todayTxns}
+          />
+          <CommissionCard
+            title='Last Month'
+            value={lastMonth}
+            icon='calendar'
+            transactions={lastMonthTxns}
+          />
+        </div>
+
+        <CommissionChart
+          title={chartTitle}
+          data={chartData}
+          activeTab={activeTab}
+          onTabChange={handleTabChange}
+          loading={chartLoading}
         />
       </div>
-
-      <CommissionChart
-        title={chartTitle}
-        data={chartData}
-        activeTab={activeTab}
-        onTabChange={handleTabChange}
-        loading={chartLoading}
-      />
-    </div>
+    </Layout>
   );
 };
 
