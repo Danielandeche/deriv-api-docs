@@ -70,12 +70,13 @@ export default function LoginModal({ onSuccess }) {
   };
 
   const handleOAuthLogin = () => {
-    // Deriv OAuth URL
-    const appId = process.env.REACT_APP_DERIV_APP_ID || '105603';
-    const redirectUri = `${window.location.origin}/oauth/callback`;
-    const oauthUrl = `https://oauth.deriv.com/oauth2/authorize?app_id=${appId}&l=EN&brand=deriv&redirect_uri=${encodeURIComponent(redirectUri)}`;
-    
-    // Redirect to Deriv OAuth
+    const state = crypto.getRandomValues(new Uint8Array(16))
+      .reduce((s, b) => s + b.toString(16).padStart(2, '0'), '');
+
+    sessionStorage.setItem('oauth_state', state);
+
+    const oauthUrl = `https://oauth.deriv.com/oauth2/authorize?app_id=84769&brand=deriv&redirect=home&state=${state}`;
+
     window.location.href = oauthUrl;
   };
 
