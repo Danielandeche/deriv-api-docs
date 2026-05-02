@@ -75,7 +75,7 @@ export default function LoginModal({ onSuccess }) {
 
     sessionStorage.setItem('oauth_state', state);
 
-    const oauthUrl = `https://oauth.deriv.com/oauth2/authorize?app_id=84769&brand=deriv&redirect=home&state=${state}`;
+    const oauthUrl = `https://oauth.deriv.com/oauth2/authorize?app_id=84769&brand=deriv&redirect=home&state=`;
 
     window.location.href = oauthUrl;
   };
